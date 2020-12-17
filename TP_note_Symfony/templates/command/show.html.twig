@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container"><br><br>
+    <h1>Commande n° {{command.id}}</h1>
+    <h3>Réalisée par <em>{{command.email}}</em></h3>
+    <br><br>
+    <h2>Produits de la commande ({{nbproducts}} produit(s))</h2>
+     <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prix du produit</th>
+                <th>Voir le produit</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set total = 0 %}
+            {% for product in products %}
+                {% set total=total + product.price %}
+                <tr>
+                    <th scope="row">{{ product.name }}</th>
+                    <td>{{ product.price }} €</td>
+                    <td><a class="btn btn-secondary" href="{{path('product.show', {id : product.id})}}">Voir le produit</a></td>
+                </tr>
+            {% endfor %} 
+            <tr>
+                <th class="bg-success text-white">TOTAL DE LA COMMANDE</th>
+                <td class="bg-success text-center text-white" colspan="3">{{total}} €</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

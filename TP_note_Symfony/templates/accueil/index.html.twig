@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <center><h1>Accueil</h1><center><br><br>
+    <div class="row">
+        <div class="col-6">
+            <h2>Produits les plus récents</h2>
+             <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Plus de détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in mostRecentProducts %}
+                        <tr>
+                            <th scope="row">{{ product.name }}</th>
+                            <td>{{ product.createdAt }}</td>
+                            <td><a class="btn btn-primary" href="{{path('product.show', {id : product.id})}}">Voir le produit</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <h2>Produits les moins chers</h2>
+             <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Plus de détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in cheapestProducts %}
+                        <tr>
+                            <th scope="row">{{ product.name }}</th>
+                            <td>{{ product.price }}</td>
+                            <td><a class="btn btn-primary" href="{{path('product.show', {id : product.id})}}">Voir le produit</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+</div>
+{% endblock %}

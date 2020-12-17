@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommandController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <center><h1>Mes commandes</h1><center><br><br>
+    <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Mail de l'acheteur</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for command in commands %}
+            <tr class='clickable-row' data-href='/command/{{command.id}}'>
+                <th scope="row">{{ command.id }}</th>
+                <td>{{ command.email }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>    
+</div>
+{% block javascripts %} 
+   <script language = "javascript" 
+      src = "https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+   
+   <script language = "javascript">  
+      $(document).ready(function(){   
+         $(".clickable-row").click(function(){
+            window.location = $(this).data("href");
+        });
+      });  
+   </script> 
+{% endblock %} 
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <input type="text" value="{{product.id}}" id="productId" hidden/>
+    <h1 data-id="{{ product.id }}">{{ product.name }}</h1><br>
+    <table class="table">
+    <p> Créé le {{ product.createdAt|date('d/m/Y') }}</p>
+    <br><br>
+    <p>{{product.description}}</p><br><br>
+    <a class="btn btn-success"  id="addCart">Ajouter au panier</a><br><br>
+    <a class="btn btn-primary" href="{{ path('product') }}">Retour à la liste</a>&nbsp;&nbsp;&nbsp;
+</div>
+
+{% block javascripts %} 
+   <script language = "javascript" 
+      src = "https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+   
+   <script language = "javascript">  
+      $(document).ready(function(){   
+         $("#addCart").click(function(){
+            $.get("http://maxime.lpweb-lannion.fr:7780/cart/add/"+$("#productId").val(), function(data){
+                if(data.message == "ok"){
+                    $("#addCart").addClass("disabled");
+                    alert("Votre produit a bien été ajouté au panier");
+                }
+            })
+        });
+      });  
+   </script> 
+{% endblock %}  
+{% endblock %}

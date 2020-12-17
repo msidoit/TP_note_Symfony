@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <h1>Mon panier</h1><br>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix du produit</th>
+            <th>Supprimer le produit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total = 0 %}
+            {% for product in products %}
+                {% set total=total + product.price %}
+                <tr>
+                    <th scope="row">{{ product.name }}</th>
+                    <td>{{ product.quantity }} </td>
+                    <td>{{ product.price }} €</td>
+                    <td><a class="btn btn-danger" href="{{path('cart.delete', {id : product.id})}}">Supprimer</a></td>
+                </tr>
+            {% endfor %} 
+            <tr>
+                <th>TOTAL</th>
+                <td colspan="2">{{total}} €</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="container">
+        {{ form_start(commandForm) }}
+            <div class="form-group">
+                    {{ form_row(commandForm.email, {'label': 'Adresse mail : '}) }}
+                <small class="text-danger">
+                    {{ form_errors(commandForm.email) }}
+                </small>
+            </div>
+            <br><button type="submit" class="btn btn-primary ">Commander</button>
+        {{ form_end(commandForm)}}
+    </div>
+</div>
+{% endblock %}

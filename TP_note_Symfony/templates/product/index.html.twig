@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des product</h1>
+    
+    <div class="my-5"> 
+        {% if product | length == 0 %}
+            <p><em>Pas d'article</em></p>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{ knp_pagination_sortable(product, 'Image', 'a.image') }}</th>
+                            <th scope="col">{{ knp_pagination_sortable(product, 'Nom', 'a.author') }}</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Prix du produit</th>
+                            <th scope="col">Date d'ajout</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for product in product %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('product.show', {id : product.id}) }}">
+                                    {{ product.name }}
+                                </a>
+                            </td>
+                            <td>{{ product.price }}</td>
+                            <td>
+                                {{ product.description | slice(0, 300) }}...
+                                <a href="{{ path('product.show', {id : product.id}) }}">
+                                    voir plus
+                                </a>
+                            </td>
+                            <td>{{ product.createdAt | date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                {{ knp_pagination_render(product) }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
